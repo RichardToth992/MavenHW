@@ -12,4 +12,13 @@ public class Controller implements AutoCloseable {
     public void close() throws Exception {
         model.close();
     }
+
+    public void addBook() {
+    }
+
+    public void addAuthor() {
+    }
+
+    public void addStore() {
+    }
 }
