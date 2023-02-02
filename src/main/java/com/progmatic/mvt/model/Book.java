@@ -8,6 +8,8 @@ public class Book {
     @ManyToOne
     Author author;
 
+
+
     @Id
     Long isbn;
 }
