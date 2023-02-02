@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Author {
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "author")
     List<Book> bookList;
 
     @Id
@@ -51,8 +51,13 @@ public class Author {
         this.dob = dob;
     }
 
-    public Author(){
+    public Author (){
 
+    }
+
+    public Author(String name, LocalDate dob) {
+        this.name = name;
+        this.dob = dob;
     }
 
     @Override

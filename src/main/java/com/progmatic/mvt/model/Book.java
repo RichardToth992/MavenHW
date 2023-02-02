@@ -1,6 +1,9 @@
 package com.progmatic.mvt.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -9,6 +12,7 @@ import java.util.UUID;
 public class Book {
 
     @ManyToOne
+    @JoinColumn
     Author author;
 
     @Id
@@ -50,11 +54,11 @@ public class Book {
         this.dop = dop;
     }
 
-    public String isbnGenerator(){
+    public String isbnGenerator() {
         return UUID.randomUUID().toString();
     }
 
-    public Book (){
+    public Book() {
     }
 
     @Override
