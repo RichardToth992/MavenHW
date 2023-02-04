@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Controller implements AutoCloseable {
@@ -17,33 +19,44 @@ public class Controller implements AutoCloseable {
         model.close();
     }
 
-    public void addBook(String title, Author author) {
+    public void addBook(String title, Author author, LocalDate dop) {
         Book book = new Book();
 
         book.setTitle(title);
         book.setAuthor(author);
+        book.setDop(dop);
 
         Session session = model.getSession();
         Transaction tx = session.beginTransaction();
         session.persist(book);
         session.flush();
         session.getTransaction().commit();
+        try {
+            List<Book> bookList = new ArrayList<>();
+            bookList.add(book);
+            Author x = getAuthorByName(author.getName());
+            x.setBookList(bookList);
+        } catch (NullPointerException e) {
+            e.getMessage();
+        }
     }
 
     public void modifyBook(String title, String newTitle) {
-        Book book = getBookByTitle(title);
-
-        book.setTitle(newTitle);
-        Session session = model.getSession();
-        Transaction tx = session.beginTransaction();
-        session.persist(book);
-        session.flush();
-        session.getTransaction().commit();
+        try {
+            Book book = getBookByTitle(title);
+            book.setTitle(newTitle);
+            Session session = model.getSession();
+            Transaction tx = session.beginTransaction();
+            session.persist(book);
+            session.flush();
+            session.getTransaction().commit();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     public void modifyDop(String title, LocalDate newDop) {
         Book book = getBookByTitle(title);
-
         book.setDop(newDop);
         Session session = model.getSession();
         Transaction tx = session.getTransaction();

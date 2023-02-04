@@ -15,6 +15,8 @@ public class Store {
 
     String address;
 
+    int stock;
+
     public Long getStore_id() {
         return store_id;
     }
@@ -47,9 +49,7 @@ public class Store {
         this.address = address;
     }
 
-    public Store(){
-
-    }
+    public Store(){}
 
     @Override
     public String toString() {
