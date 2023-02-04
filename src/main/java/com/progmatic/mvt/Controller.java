@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Controller implements AutoCloseable {
 
-    private HibernateContext model = new HibernateContext();
+    private final HibernateContext model = new HibernateContext();
 
     @Override
     public void close() throws Exception {
@@ -30,16 +30,33 @@ public class Controller implements AutoCloseable {
         session.getTransaction().commit();
     }
 
-    public void deleteBook(String title) {
+    public void modifyBook(String title) {
+
+    }
+
+    public Author getBookByTitle(String title) {
+        Session session = model.getSession();
+        Transaction tx = session.beginTransaction();
+
+        SelectionQuery<Book> a = session.createSelectionQuery("SELECT b FROM Book b", Book.class);
+
+        for (Book x : a.list()) {
+            if (title.equalsIgnoreCase(x.getTitle())){
+                System.out.println(x);
+            }
+        }
+        session.clear();
+        session.getTransaction().commit();
+        return null;
+    }
+
+    public void deleteAuthor(String name) {
         Session session = model.getSession();
         Transaction tx = null;
         try {
-
             tx = session.beginTransaction();
-
-            Book a = session.find(Book.class, title);
+            Author a = session.find(Author.class, name);
             session.remove(a);
-
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -66,7 +83,6 @@ public class Controller implements AutoCloseable {
 
     public Author getAuthorByName(String name) {
         Session session = model.getSession();
-
         Transaction tx = session.beginTransaction();
 
         SelectionQuery<Author> a = session.createSelectionQuery("SELECT a FROM Author a", Author.class);
@@ -79,5 +95,27 @@ public class Controller implements AutoCloseable {
         session.clear();
         session.getTransaction().commit();
         return null;
+    }
+
+    public void modifyAuthorName(String name, String newName) {
+        Author author = getAuthorByName(name);
+
+        author.setName(newName);
+        Session session = model.getSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(author);
+        session.flush();
+        session.getTransaction().commit();
+    }
+
+    public void modifyAuthorDob(String name, LocalDate newDob) {
+        Author author = getAuthorByName(name);
+
+        author.setDob(newDob);
+        Session session = model.getSession();
+        Transaction tx = session.getTransaction();
+        session.persist(author);
+        session.flush();
+        session.getTransaction().commit();
     }
 }
