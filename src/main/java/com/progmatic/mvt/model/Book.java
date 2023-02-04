@@ -6,7 +6,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 public class Book {
@@ -22,8 +21,8 @@ public class Book {
 
     LocalDate dop;
 
-    public Author getAuthor() {
-        return author;
+    public String getAuthor() {
+        return author.name;
     }
 
     public void setAuthor(Author author) {

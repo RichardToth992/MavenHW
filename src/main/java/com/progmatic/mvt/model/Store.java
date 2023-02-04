@@ -10,13 +10,10 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long store_id;
 
-    String city;
+    String storeName;
+    boolean isActive;
 
-    int postalCode;
-
-    String street;
-
-    int houseNumber;
+    String address;
 
     public Long getStore_id() {
         return store_id;
@@ -26,36 +23,28 @@ public class Store {
         this.store_id = store_id;
     }
 
-    public String getCity() {
-        return city;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
-    public int getPostalCode() {
-        return postalCode;
+    public boolean getActive() {
+        return isActive;
     }
 
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
-    public String getStreet() {
-        return street;
+    public String getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Store(){
@@ -66,10 +55,9 @@ public class Store {
     public String toString() {
         return "Store{" +
                 "store_id=" + store_id +
-                ", city='" + city + '\'' +
-                ", postalCode=" + postalCode +
-                ", street='" + street + '\'' +
-                ", houseNumber=" + houseNumber +
+                ", storeName='" + storeName + '\'' +
+                ", isActive=" + isActive +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

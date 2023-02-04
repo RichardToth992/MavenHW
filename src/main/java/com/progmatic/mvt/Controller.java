@@ -30,11 +30,29 @@ public class Controller implements AutoCloseable {
         session.getTransaction().commit();
     }
 
-    public void modifyBook(String title) {
+    public void modifyBook(String title, String newTitle) {
+        Book book = getBookByTitle(title);
 
+        book.setTitle(newTitle);
+        Session session = model.getSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(book);
+        session.flush();
+        session.getTransaction().commit();
     }
 
-    public Author getBookByTitle(String title) {
+    public void modifyDop(String title, LocalDate newDop) {
+        Book book = getBookByTitle(title);
+
+        book.setDop(newDop);
+        Session session = model.getSession();
+        Transaction tx = session.getTransaction();
+        session.persist(book);
+        session.flush();
+        session.getTransaction().commit();
+    }
+
+    public Book getBookByTitle(String title) {
         Session session = model.getSession();
         Transaction tx = session.beginTransaction();
 
@@ -42,6 +60,38 @@ public class Controller implements AutoCloseable {
 
         for (Book x : a.list()) {
             if (title.equalsIgnoreCase(x.getTitle())){
+                System.out.println(x);
+            }
+        }
+        session.clear();
+        session.getTransaction().commit();
+        return null;
+    }
+
+    public Book getBookByISBN(String isbn) {
+        Session session = model.getSession();
+        Transaction tx = session.beginTransaction();
+
+        SelectionQuery<Book> a = session.createSelectionQuery("SELECT b FROM Book b", Book.class);
+
+        for (Book x : a.list()) {
+            if (isbn.equalsIgnoreCase(x.getIsbn())){
+                System.out.println(x);
+            }
+        }
+        session.clear();
+        session.getTransaction().commit();
+        return null;
+    }
+
+    public Book getBookByAuthor(String name) {
+        Session session = model.getSession();
+        Transaction tx = session.beginTransaction();
+
+        SelectionQuery<Book> a = session.createSelectionQuery("SELECT b FROM Book b", Book.class);
+
+        for (Book x : a.list()) {
+            if (name.equalsIgnoreCase(x.getAuthor())){
                 System.out.println(x);
             }
         }
@@ -78,7 +128,18 @@ public class Controller implements AutoCloseable {
         session.getTransaction().commit();
     }
 
-    public void addStore() {
+    public void addStore(String name, boolean isActive, String address) {
+        Store bookStore = new Store();
+
+        bookStore.setStoreName(name);
+        bookStore.setActive(isActive);
+        bookStore.setAddress(address);
+
+        Session session = model.getSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(bookStore);
+        session.flush();
+        session.getTransaction().commit();
     }
 
     public Author getAuthorByName(String name) {
@@ -118,4 +179,5 @@ public class Controller implements AutoCloseable {
         session.flush();
         session.getTransaction().commit();
     }
+
 }

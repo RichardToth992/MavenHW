@@ -9,16 +9,14 @@ import javax.annotation.processing.Generated;
 public abstract class Store_ {
 
 	public static volatile SingularAttribute<Store, Long> store_id;
-	public static volatile SingularAttribute<Store, String> city;
-	public static volatile SingularAttribute<Store, String> street;
-	public static volatile SingularAttribute<Store, Integer> postalCode;
-	public static volatile SingularAttribute<Store, Integer> houseNumber;
+	public static volatile SingularAttribute<Store, String> address;
+	public static volatile SingularAttribute<Store, String> storeName;
+	public static volatile SingularAttribute<Store, Boolean> isActive;
 
 	public static final String STORE_ID = "store_id";
-	public static final String CITY = "city";
-	public static final String STREET = "street";
-	public static final String POSTAL_CODE = "postalCode";
-	public static final String HOUSE_NUMBER = "houseNumber";
+	public static final String ADDRESS = "address";
+	public static final String STORE_NAME = "storeName";
+	public static final String IS_ACTIVE = "isActive";
 
 }
 
