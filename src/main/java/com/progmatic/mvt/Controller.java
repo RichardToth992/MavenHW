@@ -31,14 +31,6 @@ public class Controller implements AutoCloseable {
         session.persist(book);
         session.flush();
         session.getTransaction().commit();
-        try {
-            List<Book> bookList = new ArrayList<>();
-            bookList.add(book);
-            Author x = getAuthorByName(author.getName());
-            x.setBookList(bookList);
-        } catch (NullPointerException e) {
-            e.getMessage();
-        }
     }
 
     public void modifyBook(String title, String newTitle) {

@@ -15,8 +15,6 @@ public class Store {
 
     String address;
 
-    int stock;
-
     public Long getStore_id() {
         return store_id;
     }
